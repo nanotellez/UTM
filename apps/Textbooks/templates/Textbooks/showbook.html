@@ -73,42 +73,42 @@
         <div class='card bg-light'>
             <!-- All book information goes in this box -->
             <div class='main'>
-                <h2>{{info}}</h2>
+                <h2>{{item|safe}}</h2>
                 <div class='pictures'>
-                    <img src="{{info.book.cover}}" alt="">
-                    {% if info.picture != "" %}
-                    <img src="/media/{{info.picture}}" alt="">
+                    <img src="{{item.book.cover}}" alt="">
+                    {% if item.picture != "" %}
+                    <img src="/media/{{item.picture}}" alt="">
                     {% else %}
                     <img src="/media/user_pics/No_pic.png" alt="">
                     {% endif %}
                 </div>
                 <div class='information p-4 mb-2 bg-info text-white'>
-                    <h4><span>Price: </span> {{info.display_price}}</h4>
-                    <p><span>Condition: </span>  {{info.displayCondition}}</p>
-                    <p><span>Author: </span>  {{info.book.author}}</p>
-                    <p><span>Publisher: </span>  {{info.book.publisher}}</p>
-                    <p><span>ISBN: </span>  {{info.book.ISBN}}</p>
-                    <p><span>Sold by: </span>  {{info.seller.alias}}</p>
-                    <p><span>Description: </span> {{info.description}}</p>
+                    <h4><span>Price: </span> {{item.display_price}}</h4>
+                    <p><span>Condition: </span>  {{item.displayCondition}}</p>
+                    <p><span>Author: </span>  {{item.book.author}}</p>
+                    <p><span>Publisher: </span>  {{item.book.publisher}}</p>
+                    <p><span>ISBN: </span>  {{item.book.ISBN}}</p>
+                    <p><span>Sold by: </span>  {{item.seller.alias}}</p>
+                    <p><span>Description: </span> {{item.description}}</p>
                 </div>
             </div>
             <!-- All messages and comments in here -->
-            {% if request.session.id == info.seller.id%}
-                {% if info.sold %}
+            {% if request.session.id == item.seller.id%}
+                {% if item.sold %}
                     <div class="card text-white bg-success mb-3 text-center" style="width: 100%;">
                         <div class="card-body">
                             <h4>
                                 You already decided to sell this book. Congratulations!
                             </h4>
                             <h4>
-                                Send an email to your buyer at {{info.buyer_email}}
+                                Send an email to your buyer at {{item.buyer_email}}
                             </h4>
                         </div>
                     </div>
                 {% endif %}
             {% endif %}
             <div class = 'comments'>
-                {%if request.session.id != info.seller.id%}
+                {%if request.session.id != item.seller.id%}
                 <div class='post_message'>
                     <h4>Interested? Ask a question or make an offer!</h4>
                     <div class="media">
@@ -146,7 +146,7 @@
                             <form action="/books/sold" method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" name="buyer_id" value="{{message.posted_by.id}}">
-                                <input type="hidden" name="item_id" value="{{info.id}}">
+                                <input type="hidden" name="item_id" value="{{item.id}}">
                                 <input type="hidden" name="message_id" value="{{message.id}}">
                                 <button class="comment-btn col-2 btn btn-warning btn-block" type="submit">Sell it to this user</button>
                             </form>
