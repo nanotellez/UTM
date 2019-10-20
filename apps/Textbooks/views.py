@@ -34,11 +34,11 @@ def show_sell(request, id):
 	if 'id' not in request.session:
 		return redirect('/')
 	request.session['sells_id'] = id
-	info = Sells.objects.get(id = id)
+	item = Sells.objects.get(id = id)
 	data ={
-		'info': info,
-		'messages': Message.objects.filter(on_book = info),
-		'comments': Comment.objects.filter(on_message = Message.objects.filter(on_book = info)),
+		'item': item,
+		'messages': Message.objects.filter(on_book = item),
+		'comments': Comment.objects.filter(on_message = Message.objects.filter(on_book = item)),
 	}
 	return render(request, 'Textbooks/showbook.html', data)
 
@@ -175,8 +175,8 @@ def show_want(request, id):
 	matches = Sells.objects.filter(book=want.book).filter(price__lte=want.price).filter(condition__gte=want.condition)
 	number_of_matches = matches.count()
 	context ={
-		'info': want,
-		'sells_info' : matches,
+		'item': want,
+		'sells_item' : matches,
 		'number_of_matches' : number_of_matches
 	}
 	return render(request, 'Textbooks/view_wantbook.html', context)

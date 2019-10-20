@@ -79,31 +79,31 @@
         
         <!-- All book information goes in this box -->
         <div class='main'>
-            <h2>{{info.book.title}}</h2>
+            <h2>{{item|safe}}</h2>
             <!-- <div class='pictures'>
                 <img src="" alt="Placeholder for cover picture">
                 <img src="" alt="Placeholder for users picture">
             </div> -->
             <div class='information p-4 mb-2 bg-info text-white'>
-                <p><span>Author: </span>  {{info.book.author}}</p>
-                <p><span>Publisher: </span>  {{info.book.publisher}}</p>
-                <p><span>ISBN: </span>  {{info.book.ISBN}}</p>
-                <p><span>Willing to pay: </span> {{info.display_price}} or less</p>
-                <p><span>Will accept in condition: </span>  {{info.displayCondition}} or better</p>
-                <a href="/books/want/{{info.id}}/edit"><button class="btn btn-sm btn-primary" type="button">Edit</button></a>  
-                <a href="/books/want/{{info.id}}/delete"><button class="btn btn-sm btn-danger" type="button">Delete</button></a>
+                <p><span>Author: </span>  {{item.book.author}}</p>
+                <p><span>Publisher: </span>  {{item.book.publisher}}</p>
+                <p><span>ISBN: </span>  {{item.book.ISBN}}</p>
+                <p><span>Willing to pay: </span> {{item.display_price}} or less</p>
+                <p><span>Will accept in condition: </span>  {{item.displayCondition}} or better</p>
+                <a href="/books/want/{{item.id}}/edit"><button class="btn btn-sm btn-primary" type="button">Edit</button></a>  
+                <a href="/books/want/{{item.id}}/delete"><button class="btn btn-sm btn-danger" type="button">Delete</button></a>
             </div>
         </div>
         <!-- <p style="margin-left: 10px;"></p> -->
         <div class='matches'>
             <h2>Matches Found ({{number_of_matches}})</h2>
-            {% for item in sells_info %}
+            {% for sale in sells_item %}
                 <div class='information p-4 mb-2 bg-info text-white'>
-                    <h4><span>Title : </span> {{item}}</h4>
+                    <h4><span>Title : </span> {{sale|safe}}</h4>
                     <p><span>Sold By : </span>  
-                    {{item.seller.name}}</p>
-                    <p><span>Price : </span>  {{item.display_price}}</p>
-                    <a href="/books/sell/{{item.id}}/show"><button class="btn btn-sm btn-primary" type="button">View </button></a>
+                    {{sale.seller.name}}</p>
+                    <p><span>Price : </span>  {{sale.display_price}}</p>
+                    <a href="/books/sell/{{sale.id}}/show"><button class="btn btn-sm btn-primary" type="button">View </button></a>
                 </div>
             {% endfor %}
         </div>
